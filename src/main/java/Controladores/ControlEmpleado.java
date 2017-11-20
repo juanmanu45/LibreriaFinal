@@ -9,6 +9,9 @@ import DAO.CrudEmpleado;
 import VO.Empleado;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -72,18 +75,22 @@ public class ControlEmpleado extends HttpServlet {
         int cedulas = Integer.parseInt(cedula);
 
         if (contrasena.trim().length() > 0 && cedula.trim().length() > 0  ) {
-            resultado = true;
-            Empleado em = new Empleado(nombre, cedulas, contrasena, usuario);
-            CrudEmpleado c = new CrudEmpleado();
-            c.agregarEmpleado(em);
-         
-            RequestDispatcher rq = request.getRequestDispatcher("InsertarEmpleados.jsp");
-            if (resultado == true) {
-                request.setAttribute("resultado", true);
-            } else {
-                request.setAttribute("resultado", false);
+            try {
+                resultado = true;
+                Empleado em = new Empleado(nombre, cedulas, contrasena, usuario);
+                CrudEmpleado c = new CrudEmpleado();
+                c.agregarEmpleado(em);
+                
+                RequestDispatcher rq = request.getRequestDispatcher("InsertarEmpleados.jsp");
+                if (resultado == true) {
+                    request.setAttribute("resultado", true);
+                } else {
+                    request.setAttribute("resultado", false);
+                }
+                rq.forward(request, response);
+            } catch (URISyntaxException ex) {
+                Logger.getLogger(ControlEmpleado.class.getName()).log(Level.SEVERE, null, ex);
             }
-            rq.forward(request, response);
         }else{
            request.setAttribute("resultado", false);
         }

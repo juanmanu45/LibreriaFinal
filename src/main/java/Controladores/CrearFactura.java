@@ -11,7 +11,10 @@ import VO.Factura;
 import VO.Libro;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -42,6 +45,8 @@ public class CrearFactura extends HttpServlet {
                 request.setAttribute("lis", null);
             }
             rq.forward(request, response);
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(CrearFactura.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -62,25 +67,29 @@ public class CrearFactura extends HttpServlet {
 
         if (id.trim().length() != 0 && nombreLi.trim().length() != 0) {
 
-            CrudFactura cr = new CrudFactura();
-            CrudLibro cl = new CrudLibro();
-            Libro li = new Libro();
-            
-            
-            li=cl.extraerLibro(nombreLi);
-            Factura f=new Factura(cliente, nombreLi, li.getId(), fac, li.getPrecio(), em);
-            
-            cr.facturar(f);
-            
-            RequestDispatcher rq = request.getRequestDispatcher("insertarFactura.jsp");
-
-            if (resultado == true) {
-                request.setAttribute("resultado", true);
-            } else {
-                request.setAttribute("resultado", false);
+            try {
+                CrudFactura cr = new CrudFactura();
+                CrudLibro cl = new CrudLibro();
+                Libro li = new Libro();
+                
+                
+                li=cl.extraerLibro(nombreLi);
+                Factura f=new Factura(cliente, nombreLi, li.getId(), fac, li.getPrecio(), em);
+                
+                cr.facturar(f);
+                
+                RequestDispatcher rq = request.getRequestDispatcher("insertarFactura.jsp");
+                
+                if (resultado == true) {
+                    request.setAttribute("resultado", true);
+                } else {
+                    request.setAttribute("resultado", false);
+                }
+                
+                rq.forward(request, response);
+            } catch (URISyntaxException ex) {
+                Logger.getLogger(CrearFactura.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            rq.forward(request, response);
        
         }
 

@@ -9,6 +9,9 @@ import DAO.UserDao;
 import VO.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -70,39 +73,43 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        String login = request.getParameter("usuario");
-        String pass = request.getParameter("pass");
-        Usuario datosUsuario = new Usuario();
-        datosUsuario.setLogin(login);
-        datosUsuario.setPass(pass);
-
-        //Validaciones
-        UserDao userDao = new UserDao();
-        Usuario sesion = userDao.validar(datosUsuario);
-        HttpSession sesionUsuario = request.getSession();
-        Usuario _sesionUsuario = (Usuario) sesionUsuario.getAttribute("usuario");
-        if (_sesionUsuario == null) {
-            //El usuario no a creado la sesion
-            if (sesion != null) {
-                sesionUsuario.setAttribute("usuario", sesion);
-                sesionUsuario.setMaxInactiveInterval(20);
-                System.out.println("holi llege ");
-                response.sendRedirect("index.jsp");
-            } else {
-                response.sendRedirect("InsertarEmpleados.jsp");
+        try {
+            processRequest(request, response);
+            String login = request.getParameter("usuario");
+            String pass = request.getParameter("pass");
+            Usuario datosUsuario = new Usuario();
+            datosUsuario.setLogin(login);
+            datosUsuario.setPass(pass);
+            
+            //Validaciones
+            UserDao userDao = new UserDao();
+            Usuario sesion = userDao.validar(datosUsuario);
+            HttpSession sesionUsuario = request.getSession();
+            Usuario _sesionUsuario = (Usuario) sesionUsuario.getAttribute("usuario");
+            if (_sesionUsuario == null) {
+                //El usuario no a creado la sesion
+                if (sesion != null) {
+                    sesionUsuario.setAttribute("usuario", sesion);
+                    sesionUsuario.setMaxInactiveInterval(20);
+                    System.out.println("holi llege ");
+                    response.sendRedirect("index.jsp");
+                } else {
+                    response.sendRedirect("InsertarEmpleados.jsp");
+                    
+                }
                 
+            } else {
+                response.sendRedirect("InsertarEmpleados");
             }
-
-        } else {
-            response.sendRedirect("InsertarEmpleados");
-        }
-
-        if (sesion != null) {
-
-        } else {
-            request.setAttribute("Error", "Revisar usuario/ pass");
-            RequestDispatcher rq = request.getRequestDispatcher("Sindex.jsp");
+            
+            if (sesion != null) {
+                
+            } else {
+                request.setAttribute("Error", "Revisar usuario/ pass");
+                RequestDispatcher rq = request.getRequestDispatcher("Sindex.jsp");
+            }
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
