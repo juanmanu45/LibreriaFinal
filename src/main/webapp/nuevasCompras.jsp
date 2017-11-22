@@ -57,7 +57,7 @@
 
                         <p>Ingrese la informacion solicitada</p>
 
-                        <form action=" ComprasInternet" method="post">
+                        <form action="ComprasInternet" method="post">
                             <div class="form_settings">
                                 <p><span>Numero De Registro</span>
                                     <input class="contact" type="text" name="id" value="" /></p>
