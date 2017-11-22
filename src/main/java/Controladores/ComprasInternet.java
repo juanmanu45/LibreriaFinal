@@ -49,7 +49,16 @@ public class ComprasInternet extends HttpServlet {
             Logger.getLogger(CrearFactura.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
 
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        response.sendRedirect("nuevasCompras.jsp");
+    }
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
