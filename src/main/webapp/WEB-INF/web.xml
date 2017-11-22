@@ -26,7 +26,7 @@
     </servlet>
        <servlet>
         <servlet-name>ComprasInternet</servlet-name>
-        <servlet-class>controladores.ComprasInternet</servlet-class>
+        <servlet-class>Controladores.ComprasInternet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ListarEmpleados</servlet-name>
