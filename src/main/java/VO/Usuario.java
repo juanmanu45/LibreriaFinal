@@ -10,9 +10,18 @@ package VO;
  * @author fernando stiven
  */
 public class Usuario {
-       private int id;
+    private int id;
     private String login;
     private String pass;
+    private String tipo;
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
     public int getId() {
         return id;

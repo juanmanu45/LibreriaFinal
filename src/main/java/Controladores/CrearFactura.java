@@ -31,6 +31,7 @@ public class CrearFactura extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         try (PrintWriter out = response.getWriter()) {
             RequestDispatcher rq = request.getRequestDispatcher("insertarFactura.jsp");
 

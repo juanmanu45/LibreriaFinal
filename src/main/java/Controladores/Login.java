@@ -105,7 +105,7 @@ public class Login extends HttpServlet {
             if (sesion != null) {
                 
             } else {
-                request.setAttribute("Error", "Revisar usuario/ pass");
+                request.setAttribute("Error", "Revisar usuario/ password");
                 RequestDispatcher rq = request.getRequestDispatcher("Sindex.jsp");
             }
         } catch (URISyntaxException ex) {

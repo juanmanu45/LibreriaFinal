@@ -24,6 +24,10 @@
         <servlet-name>ControlEmpleado</servlet-name>
         <servlet-class>Controladores.ControlEmpleado</servlet-class>
     </servlet>
+       <servlet>
+        <servlet-name>ListaDeseos</servlet-name>
+        <servlet-class>control.ListaDeseos</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>ListarEmpleados</servlet-name>
         <servlet-class>Controladores.ListarEmpleados</servlet-class>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>OrdenarAutor</servlet-name>
         <url-pattern>/OrdenarAutor</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>ListaDeseos</servlet-name>
+        <url-pattern>/ListaDeseos</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
